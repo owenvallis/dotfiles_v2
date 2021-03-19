@@ -38,6 +38,7 @@
 " Sets how many lines of history VIM has to remember
 set history=500
 
+"
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -59,6 +60,7 @@ command W w !sudo tee % > /dev/null
 
 " Remap <Esc> to jk
 imap jk <Esc>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -96,6 +98,9 @@ set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch
+
+" vim speedups for editing over ssh
+set ttyfast
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -237,14 +242,39 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
+" Enable spell checking, even in program source files. Hit <F4> to highlight
+" highlight spelling errors. Hit it again to turn highlighting off.
+"
+" And, if you cannot remember the keybindings, and/or too lazy to type
+"
+"     :help spell
+
+" and read the manual, here is a brief reminder:
+" ]s Next misspelled word
+" [s Previous misspelled word
+" z= Make suggestions for current word
+" zg Add to good words list
+"
+if has("spell")
+  setlocal spell spelllang=en_us  " American English spelling.
+  set spellfile=~/.words.utf8.add " My ownn word list.
+
+  " Toggle spelling
+  map <leader>ss :set spell!<CR><Bar>:echo "Spell check: " . strpart("OffOn", 3 * &spell, 3)<CR>
+
+  " Change the default highlighting colors and terminal attributes
+  highlight SpellBad cterm=underline ctermfg=yellow ctermbg=gray
+
+  " Limit list of suggestions to the top 10 items
+  set sps=best,10
+
+  "Turn spelling off by default for English UK.
+  "Center is correctly spelled. Centre is not, and
+  "shows with spell local colors. Misspelled words
+  "show like soo.
+  set nospell
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -270,11 +300,9 @@ set clipboard=unnamed
 " => Turn persistent undo on
 "    means that you can undo even when you close a buffer/VIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-try
-    set undodir=~/.vim_runtime/temp_dirs/undodir
-    set undofile
-catch
-endtry
+" Keep undo history across sessions by storing it in a file
+set undofile
+set undodir=~/.vim_undodir
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

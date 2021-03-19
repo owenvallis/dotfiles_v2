@@ -13,3 +13,6 @@
 [submodule "vim_runtime/pack/sources_non_forked/start/vim-slime"]
 	path = vim_runtime/pack/sources_non_forked/start/vim-slime
 	url = git@github.com:jpalardy/vim-slime.git
+[submodule "vim_runtime/pack/sources_non_forked/start/syntastic"]
+	path = vim_runtime/pack/sources_non_forked/start/syntastic
+	url = git@github.com:vim-syntastic/syntastic.git
