@@ -16,3 +16,6 @@
 [submodule "vim_runtime/pack/sources_non_forked/start/syntastic"]
 	path = vim_runtime/pack/sources_non_forked/start/syntastic
 	url = git@github.com:vim-syntastic/syntastic.git
+[submodule "vim_runtime/pack/sources_non_forked/start/vim-isort"]
+	path = vim_runtime/pack/sources_non_forked/start/vim-isort
+	url = git@github.com:fisadev/vim-isort.git

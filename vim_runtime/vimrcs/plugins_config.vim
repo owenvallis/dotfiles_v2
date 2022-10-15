@@ -33,3 +33,14 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 " Required to get syntastic to work with google pytype b/65193656
 let g:syntastic_python_checker_args = '--mode=style'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Black
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:black_linelength = 119
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => macros
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Format using Black and Isort
+map <leader>f : Black<cr>:Isort<cr>
